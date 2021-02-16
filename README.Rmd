@@ -1,0 +1,151 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-"
+)
+
+library(tidyverse)
+```
+
+# vhs
+Colour palettes based on blank VHS cassette packaging design.
+
+The inspiration and images for the colour palettes came from [flashbak.com](https://flashbak.com/blank-vhs-cassette-packaging-design-trends-art-402545/)
+
+### Examples
+```{r echo=FALSE, fig.width=8, fig.height=6}
+patchwork::wrap_plots(
+  
+  magick::image_read('data-raw/sony.png') %>% 
+    magick::image_ggplot()+
+    theme_minimal()+
+    theme(axis.title = element_blank(),
+          axis.text = element_blank()),
+  
+  imap_dfr(vhs::vhs_palettes, ~tibble(palette = .y, hex = .x)) %>%
+    filter(palette == "sony") %>% 
+    mutate(hex = fct_inorder(rev(hex))) %>% 
+    ggplot(aes(palette))+
+    geom_bar(aes(fill = hex), position="fill", col=NA)+
+    scale_fill_identity()+
+    coord_flip()+
+    theme_minimal()+
+    theme(axis.title = element_blank(),
+          axis.text.x = element_blank(),
+          panel.grid = element_blank()),
+
+
+  magick::image_read('data-raw/vhs.png') %>% 
+    magick::image_ggplot()+
+    theme_minimal()+
+    theme(axis.title = element_blank(),
+          axis.text = element_blank()),
+  
+  imap_dfr(vhs::vhs_palettes, ~tibble(palette = .y, hex = .x)) %>%
+    filter(palette == "vhs") %>% 
+    mutate(hex = fct_inorder(rev(hex))) %>%
+    ggplot(aes(palette))+
+    geom_bar(aes(fill = hex), position="fill", col=NA)+
+    scale_fill_identity()+
+    coord_flip()+
+    theme_minimal()+
+    theme(axis.title = element_blank(),
+          axis.text.x = element_blank(),
+          panel.grid = element_blank()),
+  
+  
+  magick::image_read('data-raw/maxell_gu.png') %>% 
+    magick::image_ggplot()+
+    theme_minimal()+
+    theme(axis.title = element_blank(),
+          axis.text = element_blank()),
+  
+  imap_dfr(vhs::vhs_palettes, ~tibble(palette = .y, hex = .x)) %>%
+    filter(palette == "maxell_gu") %>% 
+    mutate(hex = fct_inorder(rev(hex))) %>%    ggplot(aes(palette))+
+    geom_bar(aes(fill = hex), position="fill", col=NA)+
+    scale_fill_identity()+
+    coord_flip()+
+    theme_minimal()+
+    theme(axis.title = element_blank(),
+          axis.text.x = element_blank(),
+          panel.grid = element_blank()),
+  
+    magick::image_read('data-raw/recoton.png') %>% 
+    magick::image_ggplot()+
+    theme_minimal()+
+    theme(axis.title = element_blank(),
+          axis.text = element_blank()),
+  
+  imap_dfr(vhs::vhs_palettes, ~tibble(palette = .y, hex = .x)) %>%
+    filter(palette == "recoton") %>% 
+    mutate(hex = fct_inorder(rev(hex))) %>%    ggplot(aes(palette))+
+    geom_bar(aes(fill = hex), position="fill", col=NA)+
+    scale_fill_identity()+
+    coord_flip()+
+    theme_minimal()+
+    theme(axis.title = element_blank(),
+          axis.text.x = element_blank(),
+          panel.grid = element_blank()),
+  
+   magick::image_read('data-raw/maxell_ex.png') %>% 
+    magick::image_ggplot()+
+    theme_minimal()+
+    theme(axis.title = element_blank(),
+          axis.text = element_blank()),
+  
+  imap_dfr(vhs::vhs_palettes, ~tibble(palette = .y, hex = .x)) %>%
+    filter(palette == "maxell_ex") %>% 
+    mutate(hex = fct_inorder(rev(hex))) %>% 
+    ggplot(aes(palette))+
+    geom_bar(aes(fill = hex), position="fill", col=NA)+
+    scale_fill_identity()+
+    coord_flip()+
+    theme_minimal()+
+    theme(axis.title = element_blank(),
+          axis.text.x = element_blank(),
+          panel.grid = element_blank()),
+
+  ncol =2
+)
+```
+
+```{r}
+library(vhs)
+```
+
+### View all palettes
+```{r fig.height=8}
+view_all_vhs_palettes()
+```
+
+### Get a single palette
+Extract a single palette with `vhs()`
+```{r, fig.width=8, fig.height=3}
+vhs("tdk_vivid") %>% 
+  tibble(x=.) %>%
+  mutate(x=fct_inorder(rev(x))) %>%
+  ggplot() +
+  geom_bar(aes("", fill=x), position = "stack") +
+  scale_fill_identity()+
+  theme_void()+
+  coord_flip()
+
+vhs("tdk_vivid", type="c", n=40) %>% 
+  tibble(x=.) %>%
+  mutate(x=fct_inorder(rev(x))) %>%
+  ggplot() +
+  geom_bar(aes("", fill=x), position = "stack") +
+  scale_fill_identity()+
+  theme_void()+
+  coord_flip()
+```
+
+
