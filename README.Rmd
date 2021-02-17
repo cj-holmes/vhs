@@ -148,4 +148,10 @@ vhs("tdk_vivid", type="c", n=40) %>%
   coord_flip()
 ```
 
+### ggplot
+```{r}
+ggplot(diamonds, aes(color, fill=cut))+
+  geom_bar(col=1)+
+  scale_fill_manual(values = vhs("rainbow"))
+```
 

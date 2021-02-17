@@ -54,3 +54,13 @@ vhs("tdk_vivid", type="c", n=40) %>%
 ```
 
 ![](man/figures/README-unnamed-chunk-5-2.png)<!-- -->
+
+### ggplot
+
+``` r
+ggplot(diamonds, aes(color, fill=cut))+
+  geom_bar(col=1)+
+  scale_fill_manual(values = vhs("rainbow"))
+```
+
+![](man/figures/README-unnamed-chunk-6-1.png)<!-- -->
